@@ -6,8 +6,20 @@
   --background: #fff8ed;
 }
 
+html {
+  /* Smoother font rendering for Devanagari on mobile */
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   background-color: var(--background);
+}
+
+/* Inputs must be ≥16px on iOS or Safari zooms in on focus */
+input,
+textarea,
+select {
+  font-size: 16px;
 }
 
 @layer components {
@@ -15,12 +27,12 @@ body {
     @apply mx-auto max-w-6xl px-4 sm:px-6;
   }
   .btn-primary {
-    @apply inline-block rounded-full bg-saffron-600 px-6 py-3 font-bold text-white shadow-md transition hover:bg-saffron-700 hover:shadow-lg;
+    @apply inline-block min-h-[48px] rounded-full bg-saffron-600 px-6 py-3 font-bold text-white shadow-md transition hover:bg-saffron-700 hover:shadow-lg;
   }
   .btn-secondary {
-    @apply inline-block rounded-full border-2 border-maroon-800 px-6 py-3 font-bold text-maroon-800 transition hover:bg-maroon-800 hover:text-white;
+    @apply inline-block min-h-[48px] rounded-full border-2 border-maroon-800 px-6 py-3 font-bold text-maroon-800 transition hover:bg-maroon-800 hover:text-white;
   }
   .section-title {
-    @apply mb-6 text-center text-3xl font-bold text-maroon-900 sm:text-4xl;
+    @apply mb-6 text-center text-2xl font-bold text-maroon-900 sm:text-4xl;
   }
 }

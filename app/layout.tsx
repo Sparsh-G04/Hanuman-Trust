@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Noto_Sans_Devanagari, Noto_Serif_Devanagari } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
@@ -26,6 +26,13 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: `${siteConfig.name} — ${siteConfig.tagline}। कार्यक्रम, दान एवं संपर्क की जानकारी।`,
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Browser chrome (address bar) matches the maroon navbar on mobile
+  themeColor: "#5c1a1a",
 };
 
 export default function RootLayout({

@@ -15,9 +15,9 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-40 bg-maroon-900 text-white shadow-md">
       <div className="container-site flex items-center justify-between py-3">
-        <Link href="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Image src="/logo.svg" alt="लोगो" width={44} height={44} priority />
-          <span className="font-serif text-lg font-bold leading-tight sm:text-xl">
+        <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)}>
+          <Image src="/logo.svg" alt="लोगो" width={44} height={44} priority className="h-10 w-10 shrink-0 sm:h-11 sm:w-11" />
+          <span className="min-w-0 font-serif text-sm font-bold leading-snug sm:text-lg lg:text-xl">
             {siteConfig.name}
           </span>
         </Link>
@@ -54,9 +54,9 @@ export default function Navbar() {
           </span>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Mobile hamburger — 48px tap target */}
         <button
-          className="rounded p-2 hover:bg-maroon-800 lg:hidden"
+          className="-mr-2 flex h-12 w-12 shrink-0 items-center justify-center rounded hover:bg-maroon-800 lg:hidden"
           onClick={() => setOpen(!open)}
           aria-label={open ? "मेन्यू बंद करें" : "मेन्यू खोलें"}
           aria-expanded={open}
@@ -79,7 +79,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className={`block px-6 py-3 font-medium hover:bg-maroon-800 ${
+              className={`block px-6 py-4 font-medium hover:bg-maroon-800 ${
                 pathname === link.href ? "bg-saffron-600" : ""
               }`}
             >

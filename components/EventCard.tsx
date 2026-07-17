@@ -47,7 +47,7 @@ export default function EventCard({
           href={shareLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-bold text-white transition hover:brightness-110"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"
         >
           <WhatsAppIcon className="h-4 w-4" />
           WhatsApp पर साझा करें

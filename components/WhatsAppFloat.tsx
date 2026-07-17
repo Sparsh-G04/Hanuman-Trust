@@ -9,7 +9,8 @@ export default function WhatsAppFloat() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="WhatsApp पर संपर्क करें"
-      className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-110 hover:shadow-xl"
+      className="fixed bottom-5 right-4 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-110 hover:shadow-xl sm:right-5"
+      style={{ bottom: "max(1.25rem, env(safe-area-inset-bottom))" }}
     >
       <WhatsAppIcon className="h-7 w-7" />
     </a>
