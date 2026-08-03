@@ -1,6 +1,8 @@
+/* stylelint-disable at-rule-no-unknown */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* stylelint-enable at-rule-no-unknown */
 
 :root {
   --background: #fff8ed;
@@ -9,6 +11,8 @@
 html {
   /* Smoother font rendering for Devanagari on mobile */
   -webkit-text-size-adjust: 100%;
+  /* standard property to improve compatibility */
+  text-size-adjust: 100%;
 }
 
 body {

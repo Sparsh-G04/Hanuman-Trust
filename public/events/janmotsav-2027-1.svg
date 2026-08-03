@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">हनुमान जन्मोत्सव 2027</title>
+  <desc id="desc">आगामी आयोजन बैनर</desc>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5c1a1a"/>
+      <stop offset="60%" stop-color="#a03d22"/>
+      <stop offset="100%" stop-color="#f1a02e"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#g)"/>
+  <path d="M0 690 C260 590 420 790 750 730 C1060 670 1240 500 1600 560 L1600 900 L0 900 Z" fill="#fff8ed" fill-opacity="0.12"/>
+  <text x="100" y="165" fill="#fff8ed" font-family="Noto Sans Devanagari, Arial, sans-serif" font-size="56" font-weight="700">आगामी आयोजन</text>
+  <text x="100" y="280" fill="#ffd66b" font-family="Noto Serif Devanagari, Georgia, serif" font-size="90" font-weight="700">हनुमान जन्मोत्सव 2027</text>
+  <text x="100" y="360" fill="#fff8ed" font-family="Noto Sans Devanagari, Arial, sans-serif" font-size="42">सम्पूर्ण भक्तों के लिए सादर आमंत्रण</text>
+  <g transform="translate(1130 230)">
+    <rect x="0" y="0" width="320" height="320" rx="42" fill="#fff8ed" fill-opacity="0.15" stroke="#ffd66b" stroke-opacity="0.5"/>
+    <text x="160" y="145" text-anchor="middle" fill="#fff8ed" font-family="Noto Serif Devanagari, Georgia, serif" font-size="100" font-weight="700">ॐ</text>
+    <text x="160" y="225" text-anchor="middle" fill="#fff8ed" font-family="Noto Sans Devanagari, Arial, sans-serif" font-size="28">सेवा · श्रद्धा</text>
+  </g>
+</svg>

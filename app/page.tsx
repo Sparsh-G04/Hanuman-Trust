@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { siteConfig } from "@/config/site";
-import { getEvents, formatDateHi } from "@/lib/events";
+import { getEvents, formatDateHi, getEventSlides } from "@/lib/events";
 import Countdown from "@/components/Countdown";
 import EventCard from "@/components/EventCard";
+import TrustCarousel from "@/components/TrustCarousel";
 
 // Re-render daily so upcoming/past sorting stays fresh between deploys
 export const revalidate = 86400;
@@ -11,6 +12,7 @@ export const revalidate = 86400;
 export default function HomePage() {
   const { upcoming, past } = getEvents();
   const nextEvent = upcoming[0] ?? null;
+  const slides = getEventSlides([...upcoming, ...past]);
 
   return (
     <>
@@ -43,6 +45,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Trust gallery carousel */}
+      <TrustCarousel slides={slides} />
 
       {/* Highlights — recent events */}
       {past.length > 0 && (

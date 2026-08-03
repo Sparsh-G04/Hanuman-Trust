@@ -1,5 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import { formatDateHi, type TrustEvent } from "@/lib/events";
+import { getEventSlug } from "@/lib/events";
 import { WhatsAppIcon } from "@/components/icons";
 
 /** Event card with photos + WhatsApp share (spec: share buttons to encourage word-of-mouth). */
@@ -17,7 +19,7 @@ export default function EventCard({
     <article className="overflow-hidden rounded-2xl bg-white shadow-md transition hover:shadow-lg">
       {event.images.length > 0 && (
         <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
-          {event.images.map((img) => (
+          {event.images.slice(0, 3).map((img) => (
             <img
               key={img}
               src={`/events/${img}`}
@@ -43,15 +45,23 @@ export default function EventCard({
         </div>
         <h3 className="mb-2 font-serif text-xl font-bold text-maroon-900">{event.title}</h3>
         <p className="mb-4 text-sm leading-relaxed text-maroon-800">{event.description}</p>
-        <a
-          href={shareLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"
-        >
-          <WhatsAppIcon className="h-4 w-4" />
-          WhatsApp पर साझा करें
-        </a>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href={`/events/${getEventSlug(event)}`}
+            className="inline-flex min-h-[44px] items-center rounded-full border-2 border-maroon-800 px-5 py-2.5 text-sm font-bold text-maroon-800 transition hover:bg-maroon-800 hover:text-white"
+          >
+            पूरी गैलरी देखें
+          </Link>
+          <a
+            href={shareLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"
+          >
+            <WhatsAppIcon className="h-4 w-4" />
+            WhatsApp पर साझा करें
+          </a>
+        </div>
       </div>
     </article>
   );

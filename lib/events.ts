@@ -7,6 +7,20 @@ export interface TrustEvent {
   images: string[];
 }
 
+export interface EventSlide {
+  src: string;
+  title: string;
+  caption: string;
+}
+
+export function getEventSlug(event: Pick<TrustEvent, "title" | "date">): string {
+  return `${event.title}-${event.date}`
+    .toLowerCase()
+    .replace(/['"।]/g, "")
+    .replace(/[^\u0900-\u097Fa-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Read at build time; auto-sorted into upcoming vs past based on today's date. */
 export function getEvents(): { upcoming: TrustEvent[]; past: TrustEvent[] } {
   const today = new Date();
@@ -27,6 +41,21 @@ export function getEvents(): { upcoming: TrustEvent[]; past: TrustEvent[] } {
 
 export function getNextEvent(): TrustEvent | null {
   return getEvents().upcoming[0] ?? null;
+}
+
+export function getEventBySlug(slug: string): TrustEvent | null {
+  const events = [...getEvents().upcoming, ...getEvents().past];
+  return events.find((event) => getEventSlug(event) === slug) ?? null;
+}
+
+export function getEventSlides(events: TrustEvent[]): EventSlide[] {
+  return events.flatMap((event) =>
+    event.images.map((image, index) => ({
+      src: `/events/${image}`,
+      title: event.title,
+      caption: `${formatDateHi(event.date)} · फोटो ${index + 1}`,
+    })),
+  );
 }
 
 export function formatDateHi(iso: string): string {
