@@ -36,9 +36,9 @@ export const siteConfig = {
   // ── Social links ──────────────────────────────────────────────────
   // TODO(client): real profile URLs; leave "" to hide an icon
   social: {
-    facebook: "https://facebook.com/",
-    instagram: "https://instagram.com/",
-    youtube: "https://youtube.com/",
+    facebook: "https://www.facebook.com/share/1HeXjV898A/",
+    instagram: "https://www.instagram.com/shrihanumanjanmotsavsevatrust?igsi=MWFlY3A5cWV0eGxrMg%3D%3D&utm_source=qr",
+    youtube: "https://youtube.com/@shrihanumanjanmotsavsevatrust?si=j2NT9Gm1tf6RUSeF",
   },
 
   // ── Donations ─────────────────────────────────────────────────────
@@ -46,12 +46,29 @@ export const siteConfig = {
   // When ready: set donationsEnabled = true and wire the checkout.
   donationsEnabled: false,
 
-  // ── Trustees ──────────────────────────────────────────────────────
-  // TODO(client): real trustee/committee names (and photos → /public/trustees/)
+  // ── Trustees / Members ──────────────────────────────────────────
+  // TODO(client): fill in real names and designations
+  // Photos are at /public/members/1.jpg through 19.jpg (ranked by position)
   trustees: [
-    { name: "श्री (नाम प्रतीक्षित)", role: "अध्यक्ष" },
-    { name: "श्री (नाम प्रतीक्षित)", role: "सचिव" },
-    { name: "श्री (नाम प्रतीक्षित)", role: "कोषाध्यक्ष" },
+    { name: "अतुल कुमार गुप्ता", role: "वरिष्ठ प्रधान", photo: "/members/1.jpg" },
+    { name: " देवेन्द्र कौशिक", role: "प्रधान", photo: "/members/2.jpg" },
+    { name: "हरिओम सिंघल", role: "उपप्रधान", photo: "/members/3.jpg" },
+    { name: "धर्मेंद्र गुप्ता", role: "उपप्रधान", photo: "/members/4.jpg" },
+    { name: "मुकेश ध्यानी", role: "महासचिव", photo: "/members/5.jpg" },
+    { name: "राजेन्द्र कुमार शर्मा", role: "संयोजक/ कोषाध्यक्ष:", photo: "/members/6.jpg" },
+    { name: "अमित शर्मा", role: "सचिव", photo: "/members/7.jpg" },
+    { name: "आनन्द खुराना", role: "सहसचिव", photo: "/members/8.jpg" },
+    { name: "संजीव गुप्ता", role: "सहसचिव", photo: "/members/9.jpg" },
+    { name: "राकेश जंयत", role: "सहसचिव", photo: "/members/10.jpg" },
+    { name: "मनोज भटनागर", role: "संयोजक", photo: "/members/11.jpg" },
+    { name: "निशांत गोयल", role: "मीडिया प्रचार प्रभारी", photo: "/members/12.jpg" },
+    { name: "श्री राजकुमार मेहरा", role: "वरिष्ठ कार्यकारिणी सदस्य", photo: "/members/13.jpg" },
+    { name: "नरेश कौशिक", role: "वरिष्ठ कार्यकारिणी सदस्य", photo: "/members/14.jpg" },
+    { name: "मनीषकृष्ण वार्ष्णेय", role: "वरिष्ठ कार्यकारिणी सदस्य", photo: "/members/15.jpg" },
+    { name: "श्री मानकचंद पंचारिया", role: "प्रमुख मार्गदर्शक", photo: "/members/16.jpg" },
+    { name: "डाo सोमदत शर्मा", role: "प्रमुख मार्गदर्शक", photo: "/members/17.jpg" },
+    { name: "श्रीमती शशि रानी गुप्ता", role: "प्रमुख मार्गदर्शक", photo: "/members/18.jpg" },
+    { name: "श्री के.एन ध्यानी", role: "प्रमुख मार्गदर्शक", photo: "/members/19.jpg" },
   ],
 
   // ── Mission & Stats (Home page sections) ──────────────────────────

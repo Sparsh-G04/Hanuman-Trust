@@ -82,6 +82,8 @@ Hanuman_Trust/
 │   │   │   ├── images/
 │   │   │   └── videos/
 │   │   └── ...
+│   ├── members/                     Trustee/member photos (ranked by position)
+│   │   ├── 1.jpg → 19.jpg          1.jpg = highest rank, 19.jpg = lowest
 │   ├── sequence_webp/               Scroll animation frames (WebP, 120 frames)
 │   │   └── ezgif-frame-001.webp → 120.webp
 │   └── sequence_jpg/                Scroll animation frames (JPG fallback, 120 frames)

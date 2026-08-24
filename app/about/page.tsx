@@ -10,7 +10,6 @@ export default function AboutPage() {
         <h1 className="section-title">हमारे बारे में</h1>
 
         <section className="mx-auto max-w-3xl space-y-4 leading-relaxed text-maroon-800">
-          {/* TODO(client): replace with the trust's real mission/history text */}
           <p>
             {siteConfig.name} एक पंजीकृत धार्मिक ट्रस्ट है, जो श्री हनुमान जी की सेवा एवं भक्ति के
             प्रचार-प्रसार हेतु समर्पित है। ट्रस्ट प्रतिवर्ष हनुमान जन्मोत्सव, सुंदरकांड पाठ, भंडारे एवं
@@ -28,18 +27,21 @@ export default function AboutPage() {
           <p className="text-lg font-medium text-maroon-800">{siteConfig.registrationNumber}</p>
         </section>
 
-        {/* Trustees */}
+        {/* Trustees / Members */}
         <section className="mt-14">
           <h2 className="section-title">ट्रस्टी / समिति सदस्य</h2>
-          <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {siteConfig.trustees.map((trustee, i) => (
-              <div key={i} className="rounded-2xl bg-white p-6 text-center shadow-md">
-                {/* TODO(client): trustee photos → /public/trustees/ */}
-                <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-saffron-100 font-serif text-3xl text-saffron-700">
-                  ॐ
-                </div>
-                <h3 className="font-bold text-maroon-900">{trustee.name}</h3>
-                <p className="text-sm text-maroon-700">{trustee.role}</p>
+              <div key={i} className="flex flex-col items-center text-center">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={trustee.photo}
+                  alt={trustee.name}
+                  className="mb-3 h-28 w-28 rounded-full object-cover shadow-md sm:h-32 sm:w-32"
+                  loading="lazy"
+                />
+                <h3 className="text-sm font-bold text-maroon-900 sm:text-base">{trustee.name}</h3>
+                <p className="text-xs text-maroon-700 sm:text-sm">{trustee.role}</p>
               </div>
             ))}
           </div>
