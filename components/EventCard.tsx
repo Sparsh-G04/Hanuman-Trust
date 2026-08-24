@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
-import { formatDateHi, type TrustEvent } from "@/lib/events";
-import { getEventSlug } from "@/lib/events";
+import { siteConfig } from "@/config/site";
+import { formatDateHi, type TrustEvent, getEventSlug, resolveImagePath } from "@/lib/events";
 import { WhatsAppIcon } from "@/components/icons";
 
-/** Event card with photos + WhatsApp share (spec: share buttons to encourage word-of-mouth). */
+/** Event card with photos + WhatsApp share (shares event page URL for rich preview). */
 export default function EventCard({
   event,
   upcoming = false,
@@ -12,19 +12,20 @@ export default function EventCard({
   event: TrustEvent;
   upcoming?: boolean;
 }) {
-  const shareText = `${event.title} — ${formatDateHi(event.date)}\n${event.description}`;
-  const shareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const slug = getEventSlug(event);
+  const shareUrl = `${siteConfig.siteUrl}/events/${slug}`;
+  const waShareLink = `https://wa.me/?text=${encodeURIComponent(shareUrl)}`;
 
   return (
     <article className="overflow-hidden rounded-2xl bg-white shadow-md transition hover:shadow-lg">
       {event.images.length > 0 && (
-        <div className="grid grid-cols-2 gap-1 sm:grid-cols-3">
-          {event.images.slice(0, 3).map((img) => (
+        <div className="grid gap-1 p-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+          {event.images.slice(0, 3).map((img, index) => (
             <img
               key={img}
-              src={`/events/${img}`}
+              src={resolveImagePath(event.id, img)}
               alt={event.title}
-              className="aspect-video w-full object-cover"
+              className={`aspect-video w-full object-cover rounded-2xl ${index > 0 ? "hidden sm:block" : ""}`}
               loading="lazy"
             />
           ))}
@@ -47,13 +48,13 @@ export default function EventCard({
         <p className="mb-4 text-sm leading-relaxed text-maroon-800">{event.description}</p>
         <div className="flex flex-wrap gap-3">
           <Link
-            href={`/events/${getEventSlug(event)}`}
+            href={`/events/${slug}`}
             className="inline-flex min-h-[44px] items-center rounded-full border-2 border-maroon-800 px-5 py-2.5 text-sm font-bold text-maroon-800 transition hover:bg-maroon-800 hover:text-white"
           >
             पूरी गैलरी देखें
           </Link>
           <a
-            href={shareLink}
+            href={waShareLink}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white transition hover:brightness-110"

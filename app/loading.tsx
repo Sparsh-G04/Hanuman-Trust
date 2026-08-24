@@ -3,7 +3,7 @@ export default function Loading() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
       <img
-        src="/logo.svg"
+        src="/icon.svg"
         alt="लोड हो रहा है…"
         width={96}
         height={96}

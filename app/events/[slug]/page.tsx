@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getEvents, getEventBySlug, getEventSlug, formatDateHi } from "@/lib/events";
+import { siteConfig } from "@/config/site";
+import { getEvents, getEventBySlug, formatDateHi, resolveImagePath, resolveVideoPath } from "@/lib/events";
 import { WhatsAppIcon } from "@/components/icons";
+import GalleryGrid from "@/components/GalleryGrid";
+import VideoEmbed from "@/components/VideoEmbed";
 
-export const revalidate = 86400;
-
-export async function generateStaticParams() {
-  const { upcoming, past } = getEvents();
-  return [...upcoming, ...past].map((event) => ({ slug: getEventSlug(event) }));
-}
+// Dynamic rendering — always reads fresh data from events.json
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const event = getEventBySlug(params.slug);
@@ -18,9 +17,20 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     return { title: "कार्यक्रम नहीं मिला" };
   }
 
+  const ogImage = event.images.length > 0
+    ? `${siteConfig.siteUrl}${resolveImagePath(event.id, event.images[0])}`
+    : `${siteConfig.siteUrl}/logo.webp`;
+
   return {
-    title: `${event.title}`,
+    title: event.title,
     description: event.description,
+    openGraph: {
+      title: event.title,
+      description: event.description,
+      type: "article",
+      url: `${siteConfig.siteUrl}/events/${event.id}`,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: event.title }],
+    },
   };
 }
 
@@ -31,59 +41,47 @@ export default function EventDetailPage({ params }: { params: { slug: string } }
     notFound();
   }
 
-  const shareText = `${event.title} — ${formatDateHi(event.date)}\n${event.description}`;
-  const shareLink = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
+  const videos = event.videos ?? [];
+  const shareUrl = `${siteConfig.siteUrl}/events/${event.id}`;
+  const waShareLink = `https://wa.me/?text=${encodeURIComponent(shareUrl)}`;
+
+  const galleryImages = event.images.map((img, i) => ({
+    src: resolveImagePath(event.id, img),
+    alt: `${event.title} — फोटो ${i + 1}`,
+  }));
+
+  const resolvedVideos = videos.map((v) => resolveVideoPath(event.id, v));
 
   return (
-    <div className="container-site py-14">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-        <Link href="/events" className="text-sm font-semibold text-maroon-700 hover:text-maroon-900">
-          ← सभी कार्यक्रमों पर वापस
-        </Link>
-        <span className="rounded-full bg-saffron-100 px-3 py-1 text-xs font-bold text-saffron-800">
-          कार्यक्रम गैलरी
-        </span>
-      </div>
+    <div className="min-h-screen bg-[var(--background)]">
+      <div className="container-site py-10">
+        {/* Navigation */}
+        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <Link href="/events" className="text-sm font-semibold text-maroon-700 hover:text-maroon-900">
+            ← सभी कार्यक्रम
+          </Link>
+        </div>
 
-      <section className="mx-auto max-w-5xl overflow-hidden rounded-3xl bg-white shadow-xl">
-        {event.images.length > 0 && (
-          <div className="grid gap-1 md:grid-cols-[1.35fr_0.65fr]">
-            <img
-              src={`/events/${event.images[0]}`}
-              alt={event.title}
-              className="h-full min-h-[280px] w-full object-cover md:min-h-[420px]"
-            />
-            <div className="grid gap-1 sm:grid-cols-2 md:grid-cols-1">
-              {event.images.slice(1).map((image) => (
-                <img
-                  key={image}
-                  src={`/events/${image}`}
-                  alt={event.title}
-                  className="h-44 w-full object-cover md:h-[208px]"
-                />
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="p-6 sm:p-8">
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-maroon-100 px-3 py-1 text-xs font-bold text-maroon-800">
+        {/* Event header */}
+        <header className="mb-10">
+          <div className="mb-3 flex flex-wrap items-center gap-3">
+            <span className="rounded-full bg-saffron-100 px-3 py-1 text-xs font-bold text-saffron-800">
               {formatDateHi(event.date)}
             </span>
-            <span className="rounded-full bg-gold-300/30 px-3 py-1 text-xs font-bold text-maroon-700">
-              सभी तस्वीरें
-            </span>
           </div>
-          <h1 className="font-serif text-3xl font-bold text-maroon-950 sm:text-4xl">{event.title}</h1>
-          <p className="mt-4 max-w-3xl leading-relaxed text-maroon-800">{event.description}</p>
-
-          <div className="mt-6 flex flex-wrap gap-3">
+          <h1 className="mb-4 font-serif text-3xl font-bold text-maroon-950 sm:text-4xl">
+            {event.title}
+          </h1>
+          <p className="mb-6 max-w-3xl leading-relaxed text-maroon-800">
+            {event.description}
+          </p>
+          <div className="flex flex-wrap gap-3">
             <a
-              href={shareLink}
+              href={waShareLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 font-bold text-white transition hover:brightness-110"
+              aria-label="WhatsApp पर साझा करें"
             >
               <WhatsAppIcon className="h-4 w-4" />
               WhatsApp पर साझा करें
@@ -95,28 +93,32 @@ export default function EventDetailPage({ params }: { params: { slug: string } }
               अन्य कार्यक्रम देखें
             </Link>
           </div>
-        </div>
-      </section>
+        </header>
 
-      {event.images.length > 0 && (
-        <section className="mt-12">
-          <h2 className="mb-6 font-serif text-2xl font-bold text-maroon-900">फोटो गैलरी</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {event.images.map((image, index) => (
-              <figure key={image} className="overflow-hidden rounded-2xl bg-white shadow-md">
-                <img
-                  src={`/events/${image}`}
-                  alt={`${event.title} - फोटो ${index + 1}`}
-                  className="h-64 w-full object-cover"
-                />
-                <figcaption className="px-4 py-3 text-sm text-maroon-700">
-                  फोटो {index + 1}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-      )}
+        {/* Photo Gallery — Masonry */}
+        {galleryImages.length > 0 && (
+          <section className="mb-12">
+            <h2 className="mb-6 font-serif text-2xl font-bold text-maroon-900">
+              फोटो गैलरी ({galleryImages.length})
+            </h2>
+            <GalleryGrid images={galleryImages} />
+          </section>
+        )}
+
+        {/* Videos */}
+        {resolvedVideos.length > 0 && (
+          <section className="mb-12">
+            <h2 className="mb-6 font-serif text-2xl font-bold text-maroon-900">
+              वीडियो ({resolvedVideos.length})
+            </h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {resolvedVideos.map((video) => (
+                <VideoEmbed key={video} url={video} />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   );
 }

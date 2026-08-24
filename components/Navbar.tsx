@@ -16,8 +16,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 bg-maroon-900 text-white shadow-md">
       <div className="container-site flex items-center justify-between py-3">
         <Link href="/" className="flex min-w-0 items-center gap-2.5 sm:gap-3" onClick={() => setOpen(false)}>
-          <Image src="/logo.svg" alt="लोगो" width={44} height={44} priority className="h-10 w-10 shrink-0 sm:h-11 sm:w-11" />
-          <span className="min-w-0 font-serif text-sm font-bold leading-snug sm:text-lg lg:text-xl">
+          <Image src="/logo.webp" alt="लोगो" width={44} height={44} priority className="h-15 w-150 shrink-0 sm:h-11 sm:w-11" />
+          <span className="min-w-0 font-serif text-xl pt-3 font-bold leading-snug sm:text-lg lg:text-xl">
             {siteConfig.name}
           </span>
         </Link>
