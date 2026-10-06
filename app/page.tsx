@@ -138,6 +138,7 @@ export default function HomePage() {
               </h2>
               <p className="mb-2 text-white/90">
                 आपका दान भंडारे, सुंदरकांड पाठ एवं जन्मोत्सव के आयोजनों में सीधे उपयोग होता है।
+                आपके द्वारा दी गई राशि का समाज में धार्मिक और सामाजिक कार्यों के उत्थान में पारदर्शिता से उपयोग होता है
               </p>
               <p className="mb-6 text-sm font-medium text-white/70">
                 {siteConfig.registrationNumber}

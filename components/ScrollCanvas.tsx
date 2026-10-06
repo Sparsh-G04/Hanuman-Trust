@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { supportsWebP } from "@/lib/supports-webp";
 import { FramePreloader } from "@/lib/frame-preloader";
 
-const TOTAL_FRAMES = 120;
+const TOTAL_FRAMES = 22;
 
 export default function ScrollCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
